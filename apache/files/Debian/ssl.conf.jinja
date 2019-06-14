@@ -96,6 +96,17 @@
 	SSLStaplingReturnResponderErrors {{ salt['pillar.get']('SSLStaplingReturnResponderErrors', 'Off') }}
 	SSLStaplingCache {{ salt['pillar.get']('SSLStaplingCache', 'shmcb:/var/run/ocsp(128000)') }}
 	{% endif %}
+
+        #  SSL Options
+        #  Default: none
+        #
+        #  See https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#ssloptions
+        #  Available options are: StdEnvVars, ExportCertData, FakeBasicAuth, StrictRequire, OptRenegotiate, LegacyDNStringFormat
+        {% if salt['pillar.get']('apache:ssl:SSLOptions') is defined %}
+	SSLOptions {{ salt['pillar.get']('apache:ssl:SSLOptions') }}
+	{% else %}
+	#SSLptions
+        {% endif %}
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

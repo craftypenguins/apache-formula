@@ -106,7 +106,7 @@ MaxKeepAliveRequests 100
 # KeepAliveTimeout: Number of seconds to wait for the next request from the
 # same client on the same connection.
 #
-KeepAliveTimeout 5
+KeepAliveTimeout {{ salt['pillar.get']('apache:keepalivetimeout', '5') | to_num }}
 
 
 # These need to be set in /etc/apache2/envvars
@@ -235,8 +235,9 @@ IncludeOptional conf-enabled/*.conf
 IncludeOptional sites-enabled/*.conf
 
 # Added for security enhancements
-TraceEnable off
-ServerSignature off
+{# can also managed by apache.manage_security #}
+TraceEnable {{ salt['pillar.get']('apache:security:TraceEnable', 'off') }}
+ServerSignature {{ salt['pillar.get']('apache:security:ServerSignature', 'off') }}
 ServerTokens Prod
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

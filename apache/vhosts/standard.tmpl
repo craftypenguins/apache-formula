@@ -51,7 +51,7 @@
 
     {% if site.get('DirectoryIndex') -%}DirectoryIndex {{ vals.DirectoryIndex }}{% endif %}
     {% if site.get('UseCanonicalName') -%}UseCanonicalName {{ vals.UseCanonicalName }}{% endif %}
-    {% if site.get('AllowEncodedSlashes') != False -%}AllowEncodedSlashes {{ vals.AllowEncodedSlashes }}{% endif %}
+    {%- if site.get('AllowEncodedSlashes') != False -%}AllowEncodedSlashes {{ vals.AllowEncodedSlashes }}{%- endif %}
 
     {% if site.get('LogLevel') != False -%}LogLevel {{ vals.LogLevel }}{% endif %}
     {% if site.get('ErrorLog') != False -%}ErrorLog {{ vals.ErrorLog }}{% endif %}
@@ -68,11 +68,12 @@
     SSLCertificateFile {{ site.SSLCertificateFile }}
     {% if site.get('SSLCertificateKeyFile') %}SSLCertificateKeyFile {{ site.SSLCertificateKeyFile }}{% endif %}
     {% if site.get('SSLCertificateChainFile') %}SSLCertificateChainFile {{ site.SSLCertificateChainFile}}{% endif %}
+    {% if site.get('SSLCACertificatePath') %}SSLCACertificatePath {{ site.SSLCACertificatePath}}{% endif %}
     {% endif %}
     
-    {% if site.get('Rewrite') %}RewriteEngine on
+    {%- if site.get('Rewrite') %}RewriteEngine on
     {{ site.Rewrite }}
-    {%  endif %}
+    {%-  endif %}
 
     {%- for loc, path in site.get('Alias', {}).items() %}
     Alias {{ loc }} {{ path }}
